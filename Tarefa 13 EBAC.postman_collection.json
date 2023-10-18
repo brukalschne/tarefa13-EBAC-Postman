@@ -1,0 +1,325 @@
+{
+	"info": {
+		"_postman_id": "22f5ac8d-5d90-42e4-b40e-3e0721406a3c",
+		"name": "Tarefa 13 EBAC",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30378912",
+		"_collection_link": "https://gold-sunset-697246.postman.co/workspace/Estudos-EBAC~f9da954b-945a-41ab-be99-531ba8d7fb6a/collection/30378912-22f5ac8d-5d90-42e4-b40e-3e0721406a3c?action=share&source=collection_link&creator=30378912"
+	},
+	"item": [
+		{
+			"name": "Listar usuarios",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code é 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Validar usuário da lista\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"EBAC QA\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{local}}/usuarios",
+					"host": [
+						"{{local}}"
+					],
+					"path": [
+						"usuarios"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Cadastrar novo usuario",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code é 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"pm.test(\"Validar cadastro do usuário\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Cadastro realizado com sucesso\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nome\": \"EBAC QA Teste 4\",\r\n  \"email\": \"ebacqateste4@ebac.com\",\r\n  \"password\": \"tarefa13\",\r\n  \"administrador\": \"true\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{local}}/usuarios",
+					"host": [
+						"{{local}}"
+					],
+					"path": [
+						"usuarios"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Cadastrar usuario existente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code é 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"pm.test(\"Validar mensagem de retorno\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Este email já está sendo usado\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nome\": \"EBAC QA Teste 3\",\r\n  \"email\": \"ebacqateste4@ebac.com\",\r\n  \"password\": \"tarefa13\",\r\n  \"administrador\": \"true\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{local}}/usuarios",
+					"host": [
+						"{{local}}"
+					],
+					"path": [
+						"usuarios"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Listar usuario por ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code é 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Validar usuário\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"EBAC QA\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{local}}/usuarios/UFWC9vJfxGRIt8tB",
+					"host": [
+						"{{local}}"
+					],
+					"path": [
+						"usuarios",
+						"UFWC9vJfxGRIt8tB"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Excluir usuario",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code é 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Validar mensagem de retorno\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Registro excluído com sucesso\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{local}}/usuarios/YCmTfidNtcCISCXb",
+					"host": [
+						"{{local}}"
+					],
+					"path": [
+						"usuarios",
+						"YCmTfidNtcCISCXb"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Editar usuario",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code é 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Validar mensagem de retorno\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Registro alterado com sucesso\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nome\": \"EBAC QA Teste\",\r\n  \"email\": \"ebacqateste@ebac.com\",\r\n  \"password\": \"testetarefa13\",\r\n  \"administrador\": \"true\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{local}}/usuarios/UFWC9vJfxGRIt8tB",
+					"host": [
+						"{{local}}"
+					],
+					"path": [
+						"usuarios",
+						"UFWC9vJfxGRIt8tB"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Editar usuario existente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code é 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"pm.test(\"Validar mensagem de retorno\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Este email já está sendo usado\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nome\": \"EBAC QA\",\r\n  \"email\": \"ebacqa@ebac.com\",\r\n  \"password\": \"tarefa13\",\r\n  \"administrador\": \"true\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{local}}/usuarios/UFWC9vJfxGRIt8tB",
+					"host": [
+						"{{local}}"
+					],
+					"path": [
+						"usuarios",
+						"UFWC9vJfxGRIt8tB"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Editar usuario inexistente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code é 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"pm.test(\"Validar mensagem de retorno\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Cadastro realizado com sucesso\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nome\": \"EBAC QA NOVO\",\r\n  \"email\": \"ebacqanovo@ebac.com\",\r\n  \"password\": \"tarefa13novo\",\r\n  \"administrador\": \"true\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{local}}/usuarios/UFWC9vJfxGRIt8t6",
+					"host": [
+						"{{local}}"
+					],
+					"path": [
+						"usuarios",
+						"UFWC9vJfxGRIt8t6"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
